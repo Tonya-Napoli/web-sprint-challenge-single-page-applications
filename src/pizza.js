@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().min(2, "name must be at least 2 characters").required("Name is required")
+});
 
 const OrderForm = () => {
   const [pizzaSize, setPizzaSize] = useState("small");
@@ -84,6 +89,25 @@ const OrderForm = () => {
         />
         <label for="spinach">Spinach</label>
       </div>
+
+      <div>
+        <input
+          type="checkbox"
+          id="onion"
+          value="onion"
+          checked={toppings.includes("onion")}
+          onChange={handleToppingChange}
+        />
+        <label for="onion">Onion</label>
+      </div>
+
+      <label>Name:</label>
+      <input
+        type="text"
+        id="name-input"
+        placeholder = "Enter your name"
+        required
+      />
     </form>
   );
 };
