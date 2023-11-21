@@ -69,7 +69,7 @@ const PizzaForm = () => {
       {errors.name && <p className="error-message">{errors.name}</p>}
 
       <label>Pizza Size:</label>
-      <select value={pizzaSize} onChange={handleSizeChange}>
+      <select id= "size-dropdown" value= {pizzaSize} onChange={handleSizeChange}>
         <option value="small">Small</option>
         <option value="medium">Medium</option>
         <option value="large">Large</option>
