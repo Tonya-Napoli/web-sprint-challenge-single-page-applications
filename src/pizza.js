@@ -1,26 +1,25 @@
 import React, { useState } from "react";
-import * as yup from "yup";
 
-const schema = yup.object().shape({
-  name: yup.string().min(2, "name must be at least 2 characters").required("Name is required")
-});
-
-const OrderForm = () => {
+const PizzaForm = () => {
+  const [name, setName] = useState("");
   const [pizzaSize, setPizzaSize] = useState("small");
-  const [pizzaCrust, setPizzaCrust] = useState("thin");
-  const [pizzaQuantity, setPizzaQuantity] = useState(1);
   const [toppings, setToppings] = useState([]);
+  const [specialInstructions, setSpecialInstructions] = useState("");
+  const [errors, setErrors] = useState({});
 
-  const handlePizzaSizeChange = (event) => {
+  const handleNameChange = (event) => {
+    const newName = event.target.value;
+    setName(newName);
+
+    if (newName.length < 2) {
+      setErrors({ ...errors, name: "Name must be at least 2 characters" });
+    } else {
+      setErrors({ ...errors, name: null }); // Clear error message if name is valid
+    }
+  };
+
+  const handleSizeChange = (event) => {
     setPizzaSize(event.target.value);
-  };
-
-  const handlePizzaCrustChange = (event) => {
-    setPizzaCrust(event.target.value);
-  };
-
-  const handlePizzaQuantityChange = (event) => {
-    setPizzaQuantity(parseInt(event.target.value)); // Convert input value to a number
   };
 
   const handleToppingChange = (event) => {
@@ -32,29 +31,49 @@ const OrderForm = () => {
     }
   };
 
+  const handleSpecialInstructionsChange = (event) => {
+    setSpecialInstructions(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const orderData = {
+      name: name,
+      size: pizzaSize,
+      toppings: toppings,
+      specialInstructions: specialInstructions,
+    };
+
+    // Send order data to backend endpoint
+    // ...
+
+    // Clear form fields after submission
+    setName("");
+    setPizzaSize("small");
+    setToppings([]);
+    setSpecialInstructions("");
+  };
+
   return (
-    <form id="size-dropdown">
+    <form id="pizza-form" onSubmit={handleSubmit}>
+      <label>Name:</label>
+      <input
+        type="text"
+        id="name-input"
+        placeholder="Enter your name"
+        value={name}
+        onChange={handleNameChange}
+        required
+      />
+      {errors.name && <p className="error-message">{errors.name}</p>}
+
       <label>Pizza Size:</label>
-      <select value={pizzaSize} onChange={handlePizzaSizeChange}>
+      <select value={pizzaSize} onChange={handleSizeChange}>
         <option value="small">Small</option>
         <option value="medium">Medium</option>
         <option value="large">Large</option>
       </select>
-
-      <label>Pizza Crust Style:</label>
-      <select value={pizzaCrust} onChange={handlePizzaCrustChange}>
-        <option value="thin">Thin Crust</option>
-        <option value="thick">Thick Crust</option>
-        <option value="deep-dish">Chicago Deep Dish</option>
-      </select>
-
-      <label>Quantity:</label>
-      <input
-        type="number"
-        value={pizzaQuantity}
-        onChange={handlePizzaQuantityChange}
-        min="1"
-      />
 
       <label>Toppings:</label>
       <div>
@@ -88,8 +107,8 @@ const OrderForm = () => {
           onChange={handleToppingChange}
         />
         <label for="spinach">Spinach</label>
-      </div>
-
+        </div>
+        
       <div>
         <input
           type="checkbox"
@@ -118,4 +137,4 @@ const OrderForm = () => {
   );
 };
 
-export default OrderForm;
+export default PizzaForm;
