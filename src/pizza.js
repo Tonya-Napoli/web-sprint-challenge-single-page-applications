@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const PizzaForm = () => {
   const [name, setName] = useState("");
@@ -46,7 +47,17 @@ const PizzaForm = () => {
     };
 
     // Send order data to backend endpoint
-    // ...
+    axios.post("https://reqres.in/api/orders", orderData)
+    .then((response) => {
+      const orderRecord = response.data;
+
+      // Display the order record
+      console.log("Order record:", orderRecord);
+    })
+    .catch((error) => {
+      console.error("Error submitting order: ", error);
+    })
+  
 
     // Clear form fields after submission
     setName("");
@@ -126,13 +137,8 @@ const PizzaForm = () => {
         placeholder = "Enter any special instructions"
       textarea/>
 
-      <label>Name:</label>
-      <input
-        type="text"
-        id="name-input"
-        placeholder = "Enter your name"
-        required
-      />
+    <button id="order-button" type="submit">Add to Order</button>
+      
     </form>
   );
 };
