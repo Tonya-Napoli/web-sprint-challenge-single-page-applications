@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
-
-import OrderPizza from './order' //import OrderPizza component
+import React, {useState, useEffect} from "react"
+import { Link, Routes, Route, useNavigate } from "react-router-dom"
+import OrderForm from './pizza' // Import the OrderForm component
 
 const App = () => {
   const navigate = useNavigate();
 
   return (
     <div>
-      <h1>Lambda Eats</h1>
+      <h1>Bloomtech Eats</h1>
 
       <p>The BEST Cheeseless Pizza in Town!</p>
 
@@ -18,14 +16,14 @@ const App = () => {
         type="button"
         onClick={(e) => {
           e.preventDefault(); // Prevent default hyperlink behavior
-          navigate("/order-pizza"); // Trigger programmatic navigation
+          navigate("/pizza"); // Trigger programmatic navigation
         }}
       >
         Order Pizza Now!
       </button>
 
       <Routes>
-        <Route path="/order-pizza" element={<OrderPizza />} />
+        <Route path="/pizza" element={<OrderForm />} />
       </Routes>
     </div>
   );
