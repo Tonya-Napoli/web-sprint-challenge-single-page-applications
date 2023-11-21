@@ -12,7 +12,7 @@ const PizzaForm = () => {
     setName(newName);
 
     if (newName.length < 2) {
-      setErrors({ ...errors, name: "Name must be at least 2 characters" });
+      setErrors({ ...errors, name: "name must be at least 2 characters" });
     } else {
       setErrors({ ...errors, name: null }); // Clear error message if name is valid
     }
