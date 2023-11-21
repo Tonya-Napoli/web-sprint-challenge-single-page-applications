@@ -33,7 +33,7 @@ const OrderForm = () => {
   };
 
   return (
-    <form id="pizza-form">
+    <form id="size-dropdown">
       <label>Pizza Size:</label>
       <select value={pizzaSize} onChange={handlePizzaSizeChange}>
         <option value="small">Small</option>
@@ -100,6 +100,12 @@ const OrderForm = () => {
         />
         <label for="onion">Onion</label>
       </div>
+
+      <label>Special Instructions:</label>
+      <textarea
+        id="special-text"
+        placeholder = "Enter any special instructions"
+      textarea/>
 
       <label>Name:</label>
       <input
